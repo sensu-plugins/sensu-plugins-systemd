@@ -9,6 +9,8 @@ This provides functionality to check if services are running for systemd.
  - bin/check-systemd.rb
 
 ## Usage
+Pass services as a comma delimited -s option
+
 ```
 check-systemd.rb -s SERVICE1.service,SERVICE2.service
 ```
