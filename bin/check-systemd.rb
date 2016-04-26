@@ -69,7 +69,7 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
   end
 
   def service_summary
-    (@crit_service).join(', ')
+    @crit_service.join(', ')
   end
 
   def run
