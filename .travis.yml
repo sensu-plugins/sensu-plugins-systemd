@@ -5,3 +5,11 @@ rvm:
 - 2.3.0
 before_install:
 - gem update bundler
+deploy:
+  provider: rubygems
+  api_key:
+    secure: fnQYXam9lo9VzmmOZgQjB8C35Vq3E4eWmgHNhmPnHTGWSfkMvk/755CizKkbcA8MLuqGoy5vqqfldGArJD62vfhYqKZhAanFBHBr7OhUfVAhGX3tz2+TQt3FjzFaDGOzoVI6rFO+8tZYLGkeMwmTFXkFgJDdHEi6mpokvFaj35SktF/iYPmwDZhqATMAmnuTVKRxVudJ1HQtX9f+kgb7L35/QcG55CirnXxdueqr6wC/rk4XyzVg7dZLQXjXlo4MQXEMZ1BrLkvpdjcb0y5pET/U1oSuhFSwIv6vvy89yzQvmdDaYhWL9PumPdtC2LVorkv7FZT/vQAzVD7ewPvaFsMoP0CSrik8RImUry+8RLwxhV08n5DOkAiSzTUk+KF1jQ1HTR2v4t+UjFQSW3vg83kgJnR9sDRPHfxVO2/yAVjEmqk+F/Fs+oelf2b+JFrlnJ7fqI/c9wWYYfxiBAR+vhq0iCZEZEyIjLSGba1yQ8xJEW0ncA29ykjXx35w/SIAWqgBFblLIAehZ+m3ep1tCZwoQy8f1WQmx3n5iCXa5fx6d19hCJKfjevprjX/LOGgLdp2aU0mLszyQOF5ORAaR64QKpyBs5pHNLNkapGAUttzjktak9WgEagzu9TTEcBnsCsZgi0h/NaU/egZXM8a+aRQqopIcoMzD5GRB0OI8Og=
+  gem: sensu-plugins-systemd
+  on:
+    tags: true
+    repo: mickfeech/sensu-plugins-systemd
