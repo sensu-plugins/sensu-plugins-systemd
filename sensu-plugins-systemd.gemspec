@@ -11,7 +11,7 @@ end
 
 Gem::Specification.new do |s|
   s.name          = 'sensu-plugins-systemd'
-  s.version       = SensuPluginsLvmThinpools::Version::VER_STRING
+  s.version       = SensuPluginsSystemd::Version::VER_STRING
   s.platform      = Gem::Platform::RUBY
   s.authors       = ['mickfeech and contributors']
   s.date          = Date.today.to_s
