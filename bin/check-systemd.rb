@@ -41,6 +41,13 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
     @crit_service = []
   end
 
+  def all_service_names
+    systemd_output = `systemctl --no-legend`
+    systemd_output.split("\n").collect do |line|
+      line.split(' ').first
+    end
+  end
+
   def unit_services
     systemd_output = `systemctl --failed --no-legend`
     service_array = []
@@ -59,6 +66,10 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
   end
 
   def check_systemd
+    @services.reject { |service| validate_presence_of(service) }.each do |gone|
+      @crit_service << "#{gone} - Not Present"
+    end
+
     unit_services.each do |service|
       if service['active'] != 'active'
         @crit_service << "#{service['name']} - #{service['active']}"
@@ -70,6 +81,10 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
 
   def service_summary
     @crit_service.join(', ')
+  end
+
+  def validate_presence_of(service)
+    all_service_names.include?(service)
   end
 
   def run
