@@ -9,13 +9,16 @@ else
   require_relative 'lib/sensu-plugins-systemd'
 end
 
-Gem::Specification.new do |s|
+Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.name          = 'sensu-plugins-systemd'
   s.version       = SensuPluginsSystemd::Version::VER_STRING
   s.platform      = Gem::Platform::RUBY
   s.authors       = ['mickfeech and contributors']
   s.date          = Date.today.to_s
-  s.email         = ['cmcfee@kent.edu']
+  s.email         = [
+    'cmcfee@kent.edu',
+    '<sensu-users@googlegroups.com>'
+  ]
   s.executables   = Dir.glob('bin/**/*.rb').map { |file| File.basename(file) }
   s.homepage      = 'https://github.com/mickfeech/sensu-plugins-systemd'
   s.summary       = 'This provides functionality to check systemd services.'
@@ -23,7 +26,7 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
   s.has_rdoc      = false
   s.require_paths = ['lib']
-  s.files         = Dir['lib/**/*.rb']
+  s.files         = Dir.glob('{bin,lib}/**/*') + %w[LICENSE README.md CHANGELOG.md]
   # s.test_files    = Dir['test/*.rb']
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
 
