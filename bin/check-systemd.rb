@@ -16,6 +16,8 @@
 #
 # USAGE:
 # -s SERVICE - Services to check delimited by commas
+# -f Toogle 'failed mode'
+# -i SERVICES - Services to ignore in 'failed mode'. delimited by commas
 #
 # LICENSE:
 #   Chris McFee <cmcfee@kent.edu>
