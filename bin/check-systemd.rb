@@ -26,7 +26,6 @@
 #
 
 require 'sensu-plugin/check/cli'
-
 #
 #  Check systemd services
 #
@@ -44,7 +43,7 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
          description: 'all services are being checked. One or more failed => CRITICAL'
   option :failed_ignore,
          short: '-i SERVICES',
-         proc: proc { |a| a.split(',')},
+         proc: proc { |a| a.split(',') },
          default: [],
          long: '--failed-ignore',
          description: 'comma seperated list of services which should be ignored when using --failed mode'
@@ -88,11 +87,11 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
   def check_systemd
     unless @services.nil?
       @services.reject { |service| validate_presence_of(service) }.each do |gone|
-          @crit_service << "#{gone} - Not Present"
-       end
+         @crit_service << "#{gone} - Not Present"
+      end
     end
-    if !@services.any? && @failed == false
-      critical "You must define services to check!"
+    if @services.none? && @failed == false
+      critical 'You must define services to check!'
     end
 
     unit_services.each do |service|
