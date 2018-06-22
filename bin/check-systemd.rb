@@ -70,7 +70,6 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
     service_array = []
     systemd_output.split("\n").each do |line|
       line_array = line.split(' ')
-      next unless @services.any? { |service| line_array[0].include?(service) } || @failed == true
       next if @failed_ignore.any? { |service| line_array[0].include?(service) } && @failed == true
       service_hash = {}
       service_hash['name'] = line_array[0]
