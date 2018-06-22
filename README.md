@@ -15,6 +15,13 @@ Pass services as a comma delimited -s option
 check-systemd.rb -s SERVICE1.service,SERVICE2.service
 ```
 
+### Usage/example failed mode
+All services with state 'failed' will be reported as CRITICAL except kdump.service
+
+```
+check-systemd.rb -f -i kdump.service
+```
+
 ## Installation
 
 [Installation and Setup](http://sensu-plugins.io/docs/installation_instructions.html)

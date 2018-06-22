@@ -1,0 +1,74 @@
+diff --git a/bin/check-systemd.rb b/bin/check-systemd.rb
+index 999086d..9f6a6a8 100755
+--- a/bin/check-systemd.rb
++++ b/bin/check-systemd.rb
+@@ -31,13 +31,29 @@ require 'sensu-plugin/check/cli'
+ class CheckSystemd < Sensu::Plugin::Check::CLI
+   option :services,
+          short: '-s SERVICES',
+-         proc: proc { |a| a.split(',') }
++         proc: proc { |a| a.split(',')},
++         default: [],
++         description: 'comma seperated list of services to check. ignored if --failed is set'
++  option :failed,
++         short: '-f',
++         boolean: true,
++         default: false,
++         long: '--failed',
++         description: 'all services are being checked. One or more failed => CRITICAL'
++  option :failed_ignore,
++         short: '-i SERVICES',
++         proc: proc { |a| a.split(',')},
++         default: [],
++         long: '--failed-ignore',
++         description: 'comma seperated list of services which should be ignored when using --failed mode'
+ 
+   # Setup variables
+   #
+   def initialize
+     super
+     @services = config[:services]
++    @failed = config[:failed]
++    @failed_ignore =  config[:failed_ignore]
+     @crit_service = []
+   end
+ 
+@@ -53,21 +69,28 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
+     service_array = []
+     systemd_output.split("\n").each do |line|
+       line_array = line.split(' ')
+-      next unless @services.any? { |service| line_array[0].include?(service) }
+-      service_hash = {}
+-      service_hash['name'] = line_array[0]
+-      service_hash['load'] = line_array[1]
+-      service_hash['active'] = line_array[2]
+-      service_hash['sub'] = line_array[3]
+-      service_hash['description'] = line_array[4]
+-      service_array.push(service_hash)
++      next unless @services.any? { |service| line_array[0].include?(service) } || @failed == true
++      unless @failed_ignore.any? { |service| line_array[0].include?(service) } && @failed == true
++        service_hash = {}
++        service_hash['name'] = line_array[0]
++        service_hash['load'] = line_array[1]
++        service_hash['active'] = line_array[2]
++        service_hash['sub'] = line_array[3]
++        service_hash['description'] = line_array[4]
++        service_array.push(service_hash)
++      end
+     end
+     service_array
+   end
+ 
+   def check_systemd
+-    @services.reject { |service| validate_presence_of(service) }.each do |gone|
+-      @crit_service << "#{gone} - Not Present"
++     unless @services.nil?
++       @services.reject { |service| validate_presence_of(service) }.each do |gone|
++          @crit_service << "#{gone} - Not Present"
++       end
++    end
++    if @services.nil? && @failed == false
++        critical "You must define services to check!"  
+     end
+ 
+     unit_services.each do |service|

@@ -16,6 +16,8 @@
 #
 # USAGE:
 # -s SERVICE - Services to check delimited by commas
+# -f Toogle 'failed mode'
+# -i SERVICES - Services to ignore in 'failed mode'. delimited by commas
 #
 # LICENSE:
 #   Chris McFee <cmcfee@kent.edu>
@@ -24,20 +26,35 @@
 #
 
 require 'sensu-plugin/check/cli'
-
 #
 #  Check systemd services
 #
 class CheckSystemd < Sensu::Plugin::Check::CLI
   option :services,
          short: '-s SERVICES',
-         proc: proc { |a| a.split(',') }
+         proc: proc { |a| a.split(',') },
+         default: [],
+         description: 'comma seperated list of services to check. ignored if --failed is set'
+  option :failed,
+         short: '-f',
+         boolean: true,
+         default: false,
+         long: '--failed',
+         description: 'all services are being checked. One or more failed => CRITICAL'
+  option :failed_ignore,
+         short: '-i SERVICES',
+         proc: proc { |a| a.split(',') },
+         default: [],
+         long: '--failed-ignore',
+         description: 'comma seperated list of services which should be ignored when using --failed mode'
 
   # Setup variables
   #
   def initialize
     super
     @services = config[:services]
+    @failed = config[:failed]
+    @failed_ignore = config[:failed_ignore]
     @crit_service = []
   end
 
@@ -53,7 +70,7 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
     service_array = []
     systemd_output.split("\n").each do |line|
       line_array = line.split(' ')
-      next unless @services.any? { |service| line_array[0].include?(service) }
+      next if @failed_ignore.any? { |service| line_array[0].include?(service) } && @failed == true
       service_hash = {}
       service_hash['name'] = line_array[0]
       service_hash['load'] = line_array[1]
@@ -66,8 +83,13 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
   end
 
   def check_systemd
-    @services.reject { |service| validate_presence_of(service) }.each do |gone|
-      @crit_service << "#{gone} - Not Present"
+    unless @services.nil?
+      @services.reject { |service| validate_presence_of(service) }.each do |gone|
+        @crit_service << "#{gone} - Not Present"
+      end
+    end
+    if @services.none? && @failed == false
+      critical 'You must define services to check!'
     end
 
     unit_services.each do |service|
