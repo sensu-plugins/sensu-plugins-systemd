@@ -24,7 +24,6 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.summary       = 'This provides functionality to check systemd services.'
   s.description   = 'Plugins to provide functionality to check systemd services for Sensu, a monitoring framework'
   s.license       = 'MIT'
-  s.has_rdoc      = false
   s.require_paths = ['lib']
   s.files         = Dir.glob('{bin,lib}/**/*') + %w[LICENSE README.md CHANGELOG.md]
   # s.test_files    = Dir['test/*.rb']
