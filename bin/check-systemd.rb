@@ -87,7 +87,7 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
   def check_systemd
     unless @services.nil?
       @services.reject { |service| validate_presence_of(service) }.each do |gone|
-         @crit_service << "#{gone} - Not Present"
+        @crit_service << "#{gone} - Not Present"
       end
     end
     if @services.none? && @failed == false
