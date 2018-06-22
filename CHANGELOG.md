@@ -9,7 +9,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 - added 'failed mode'. This Mode checks all systemd service and reports only CRITICAL if any service has state "failed" (@Seji64)
 
 ### Fixed
-- check-systemd.rb: NilClass Exception when no service (-s) is set
+- check-systemd.rb: NilClass Exception when no service (-s) is set (@Seji64)
 
 ## [0.1.0] - 2017-09-10
 ### Added

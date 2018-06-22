@@ -71,15 +71,14 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
     systemd_output.split("\n").each do |line|
       line_array = line.split(' ')
       next unless @services.any? { |service| line_array[0].include?(service) } || @failed == true
-      unless @failed_ignore.any? { |service| line_array[0].include?(service) } && @failed == true
-        service_hash = {}
-        service_hash['name'] = line_array[0]
-        service_hash['load'] = line_array[1]
-        service_hash['active'] = line_array[2]
-        service_hash['sub'] = line_array[3]
-        service_hash['description'] = line_array[4]
-        service_array.push(service_hash)
-      end
+      next if @failed_ignore.any? { |service| line_array[0].include?(service) } && @failed == true
+      service_hash = {}
+      service_hash['name'] = line_array[0]
+      service_hash['load'] = line_array[1]
+      service_hash['active'] = line_array[2]
+      service_hash['sub'] = line_array[3]
+      service_hash['description'] = line_array[4]
+      service_array.push(service_hash)
     end
     service_array
   end
@@ -87,7 +86,7 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
   def check_systemd
     unless @services.nil?
       @services.reject { |service| validate_presence_of(service) }.each do |gone|
-         @crit_service << "#{gone} - Not Present"
+        @crit_service << "#{gone} - Not Present"
       end
     end
     if @services.none? && @failed == false
