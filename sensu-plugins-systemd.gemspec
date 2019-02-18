@@ -30,7 +30,7 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   # s.test_files    = Dir['test/*.rb']
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
 
-  s.add_runtime_dependency 'sensu-plugin', '~> 1.2'
+  s.add_runtime_dependency 'sensu-plugin', '>= 1.2', '< 5.0'
   # s.add_dependency('json')
   # s.add_dependency('mixlib-cli', '>= 1.5.0')
 
