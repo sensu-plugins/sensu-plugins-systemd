@@ -6,6 +6,12 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+### Breaking Change
+- Update `sensu-plugin` version from `2.x` to `'>= 2', '< 5'` for Sensu Go enablement.
+
+### Changed
+- Updates for rubocop to pass
+
 ## [0.1.0] - 2017-09-10
 ### Added
 - missing changelog entries (@majormoses)
