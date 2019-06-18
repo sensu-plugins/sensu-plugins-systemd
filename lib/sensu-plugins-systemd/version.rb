@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SensuPluginsSystemd
   module Version
     MAJOR = 0
