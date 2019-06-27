@@ -6,11 +6,11 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'date'
 require 'sensu-plugins-systemd'
 
-#if RUBY_VERSION < '2.3.0'
+# if RUBY_VERSION < '2.3.0'
 #  require 'sensu-plugins-systemd'
-#else
+# else
 #  require_relative 'lib/sensu-plugins-systemd'
-#end
+# end
 
 Gem::Specification.new do |s|
   s.name          = 'sensu-plugins-systemd'
