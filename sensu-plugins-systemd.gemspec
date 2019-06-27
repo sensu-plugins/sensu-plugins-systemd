@@ -4,6 +4,7 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'date'
+require 'sensu-plugins-systemd'
 
 #if RUBY_VERSION < '2.3.0'
 #  require 'sensu-plugins-systemd'
