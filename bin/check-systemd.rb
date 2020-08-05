@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: false
+
 #
 #   check-systemd.rb
 #
@@ -54,6 +56,7 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
     systemd_output.split("\n").each do |line|
       line_array = line.split(' ')
       next unless @services.any? { |service| line_array[0].include?(service) }
+
       service_hash = {}
       service_hash['name'] = line_array[0]
       service_hash['load'] = line_array[1]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler/gem_tasks'
 require 'github/markup'
 require 'redcarpet'
@@ -28,7 +30,7 @@ task :check_binstubs do
   unless Dir.glob('bin/**/*.rb').empty?
     bin_list = Gem::Specification.load('sensu-plugins-systemd.gemspec').executables
     bin_list.each do |b|
-      `which #{ b }`
+      `which #{b}`
       unless $CHILD_STATUS.success?
         puts "#{b} was not a binstub"
         exit

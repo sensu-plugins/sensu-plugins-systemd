@@ -6,6 +6,20 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+### Breaking Changes
+- Update minimum required ruby version to 2.3. Drop unsupported ruby versions.
+- Bump `sensu-plugin` dependency from `~> 1.2` to `~> 4.0`
+
+### Added
+- Bonsai asset support
+### Changed
+- Updated bundler dependancy to '~> 2.1'
+- Updated rubocop dependency to '~> 0.81.0'
+- Remediated rubocop issues
+- Updated codeclimate-test-reporter to '~> 1.0'
+- Updated rake dependency to '~> 13.0'
+- Updated github-markup to '~> 3.0'
+
 ## [0.1.0] - 2017-09-10
 ### Added
 - missing changelog entries (@majormoses)
