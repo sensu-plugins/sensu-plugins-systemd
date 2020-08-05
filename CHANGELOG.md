@@ -6,6 +6,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+## [0.2.1] - 2020-08-05
+### Changed
+- Fixed Travis Bonsai upload
+
 ## [0.2.0] - 2020-08-05
 ### Breaking Changes
 - Update minimum required ruby version to 2.3. Drop unsupported ruby versions.
@@ -46,7 +50,8 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-systemd/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-systemd/compare/0.2.1...HEAD
+[0.2.1]:https://github.com/sensu-plugins/sensu-plugins-systemd/compare/v0.2.0...0.2.1
 [0.2.0]:https://github.com/sensu-plugins/sensu-plugins-systemd/compare/v0.1.0...0.2.0
 [0.1.0]:https://github.com/sensu-plugins/sensu-plugins-systemd/compare/v0.0.5...0.1.0
 [0.0.5]: https://github.com/sensu-plugins/sensu-plugins-systemd/compare/v0.0.4...v0.0.5
