@@ -44,7 +44,7 @@ class CheckSystemd < Sensu::Plugin::Check::CLI
   end
 
   def all_service_names
-    systemd_output = `systemctl --no-legend`
+    systemd_output = `systemctl list-unit-files --no-legend`
     systemd_output.split("\n").collect do |line|
       line.split(' ').first
     end
